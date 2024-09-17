@@ -1,0 +1,67 @@
+@media (max-width: 767px){
+    // #map { height: 1000px; }
+    #barra-titulo{ display: none;}
+}
+
+.map-wrapper {
+    position: relative;
+  }
+#map { 
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+
+.barra-titulo{
+    top: 0;
+    left: 0;
+    z-index: 500;
+    display: block;
+    outline: 0;
+    align-content: end;
+    right: 0;
+    width: 400px;
+    margin-top: 25px;
+    margin-left: 35px;
+    position: absolute; 
+    
+}
+.p-barra{
+    border-radius: 5px 0px 20px 5px;
+}
+
+.barra-filtro{
+    top: 0;
+    left: unset;
+    z-index: 500;
+    display: block;
+    outline: 0;
+    align-content: end;
+    right: 0;
+    float: right;
+    width: 280px;
+    margin-top: 25px;
+    margin-right: 10px;
+    position: absolute; 
+}
+
+.leyenda{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: block;
+    outline: 0;
+    align-content: end;
+    float: right;
+    width: 280px;
+    margin-left: 5px;
+    position: absolute; 
+}
+
+
+
