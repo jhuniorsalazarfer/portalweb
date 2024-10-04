@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import * as M from 'leaflet';
+import { FiltrosService } from '../../core/services/apis/filtros.service';
 
 @Component({
   selector: 'component-mapa',
@@ -13,11 +14,16 @@ export class MapaComponent {
 
   private map:any;
   private userMarker: M.Marker<any> | undefined;
+  private departamentoService = inject(FiltrosService);
+
   
-  departamentos = [{id:'01', nombre:'CUSCO'}, {id:'02', nombre:'SAN MARTIN'}, {id:'03', nombre:'APURIMAC'}];
 
   ngOnInit(): void {
     this.initMapa();
+    this.departamentoService.listDepartamento()
+    .subscribe(departamentos => {
+      console.log(departamentos)
+    });
   }
 
   private initMapa() {
