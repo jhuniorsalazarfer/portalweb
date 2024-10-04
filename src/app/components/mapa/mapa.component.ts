@@ -16,7 +16,7 @@ export class MapaComponent {
   private userMarker: M.Marker<any> | undefined;
   private departamentoService = inject(FiltrosService);
 
-  
+
 
   ngOnInit(): void {
     this.initMapa();
