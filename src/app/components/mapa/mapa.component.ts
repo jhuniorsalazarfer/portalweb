@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import * as M from 'leaflet';
 import { FiltrosService } from '../../core/services/apis/filtros.service';
+import { Departamento } from '../../core/models/departamento.model';
 
 @Component({
   selector: 'component-mapa',
@@ -10,20 +11,26 @@ import { FiltrosService } from '../../core/services/apis/filtros.service';
   templateUrl: './mapa.component.html',
   styleUrl: './mapa.component.scss'
 })
-export class MapaComponent {
+export class MapaComponent implements OnInit{
 
   private map:any;
   private userMarker: M.Marker<any> | undefined;
-  private departamentoService = inject(FiltrosService);
 
+  constructor (private service : FiltrosService){}
 
+  departamentos : Departamento[] = [];
 
   ngOnInit(): void {
     this.initMapa();
-    this.departamentoService.listDepartamento()
+    this.obtenerDepartamentos();
+  }
+
+  obtenerDepartamentos(){
+    this.service.listDepartamento()
     .subscribe(departamentos => {
+      this.departamentos = departamentos;
       console.log(departamentos)
-    });
+    }); 
   }
 
   private initMapa() {

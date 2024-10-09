@@ -24,9 +24,8 @@
                 <label for="cmboDepartamento" class="form-label">Departamento:</label>
                 <select class="form-select" aria-label="Default select example" id="combDepartamento" (change)="acercarMapa()">
                   <option selected>--SELECCIONE--</option>
-                  
-                  @for (dep of departamentos; track dep.id) {
-                    <option value={{dep.id}} >{{dep.nombre}}</option>
+                  @for (departamento of departamentos; track departamento.codDepartamento) {
+                    <option value={{departamento.codDepartamento}}>{{departamento.nomDepartamento}}</option>
                   }
 
                 </select>
