@@ -22,31 +22,36 @@
             <div class="card-body">
               <div class="mb-3">
                 <label for="cmboDepartamento" class="form-label">Departamento:</label>
-                <select class="form-select" aria-label="Default select example" id="combDepartamento" (change)="acercarMapa()">
-                  <option selected>--SELECCIONE--</option>
+                <select class="form-select" aria-label="Default select example" 
+                (change)="getProvincias($event)">
+                  <option [value]="null" selected>--SELECCIONE--</option>
                   @for (departamento of departamentos; track departamento.codDepartamento) {
-                    <option value={{departamento.codDepartamento}}>{{departamento.nomDepartamento}}</option>
+                    <option [value]="departamento.codDepartamento">{{departamento.nomDepartamento}}</option>
                   }
-
                 </select>
               </div>
   
               <div class="mb-3">
                 <label for="combProvincia" class="form-label">Provincia:</label>
-                <select class="form-select" aria-label="Default select example" id="combProvincia">
-                  <option selected>--SELECCIONE--</option>
-                  <option value="1">CUSCO</option>
+                <select class="form-select" aria-label="Default select example" id="combProvincia"
+                (change)="getDistritos($event)">
+                <option [value]="null" selected>--SELECCIONE--</option>
+                  @for (provincia of provincias; track provincia.codProvincia) {
+                    <option [value]="provincia.codProvincia">{{provincia.nomProvincia}}</option>
+                  }
                 </select>
+
               </div>
   
               <div class="mb-3">
                 <label for="combDistrito" class="form-label">Distrito:</label>
                 <select class="form-select" aria-label="Default select example" id="combDistrito">
-                  <option selected>--SELECCIONE--</option>
-                  <option value="1">CUSCO</option>
+                  <option [value]="null" selected>--SELECCIONE--</option>
+                  @for (distrito of distritos; track distrito.codDistrito) {
+                    <option [value]="distrito.codDistrito">{{distrito.nomDistrito}}</option>
+                  }
                 </select>
               </div>
-  
             </div>
           </div>
         </div>
