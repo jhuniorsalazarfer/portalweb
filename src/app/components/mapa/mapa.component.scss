@@ -25,8 +25,8 @@
     align-content: end;
     right: 0;
     width: 400px;
-    margin-top: 25px;
-    margin-left: 35px;
+    margin-top: 11px;
+    margin-left: 45px;
     position: absolute; 
     
 }
@@ -36,30 +36,40 @@
 
 .barra-filtro{
     top: 0;
-    left: unset;
+    right: 0;
     z-index: 500;
     display: block;
     outline: 0;
     align-content: end;
-    right: 0;
     float: right;
     width: 280px;
-    margin-top: 25px;
+    margin-top: 60px;
     margin-right: 10px;
     position: absolute; 
 }
 
 .leyenda{
-    top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
-    z-index: 1000;
+    z-index: 500;
+    outline: 0;
+    float: left;
+    margin-left: 4px;
+    margin-bottom: 37px;
+    position: absolute;
+}
+
+.leyenda-buton{
+    bottom: 0;
+    z-index: 500;
     display: block;
     outline: 0;
-    align-content: end;
-    float: right;
-    width: 280px;
-    margin-left: 5px;
+    float: left;
+    margin-left: 4px;
+    margin-bottom: 4px;
     position: absolute; 
 }
+.img-leyenda{
+    width: 20px;
+    margin-right: 5px;
+}
+//div para datos estacion

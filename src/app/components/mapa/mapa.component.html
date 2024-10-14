@@ -1,6 +1,6 @@
 <main>
     <div class="map-wrapper">
-      <div id="map" class="map-mostrar">    </div>
+      <div id="map" class="map-mostrar"></div>
     </div>
         
       <div class="barra-titulo" id="barra-titulo">
@@ -45,30 +45,57 @@
   
               <div class="mb-3">
                 <label for="combDistrito" class="form-label">Distrito:</label>
-                <select class="form-select" aria-label="Default select example" id="combDistrito">
+                <select class="form-select" aria-label="Default select example" id="combDistrito"
+                (change)="getMapDistrito()">
                   <option [value]="null" selected>--SELECCIONE--</option>
                   @for (distrito of distritos; track distrito.codDistrito) {
                     <option [value]="distrito.codDistrito">{{distrito.nomDistrito}}</option>
                   }
                 </select>
               </div>
+
+              <p>Hola</p><span><i class="bi bi-geo-alt-fill" style="font-size: 2rem; color: cornflowerblue;"></i></span>
             </div>
           </div>
         </div>
       </div>
   
-      <!-- <div class="leyenda">
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+      <div class="card leyenda" style="width: 15.5rem;" id="divLeyenda" [ngStyle]="{'display': displayLeyenda}">
+        <div class="card-body">
+          <h6 class="card-title" style="font-size: 17px;"><strong>Leyenda</strong></h6>
+          <h6 class="card-subtitle mb-2 text-muted">Tipo de Estación</h6>
+          <hr class="my-2">
+          <!-- <p class="card-text mb-1"><img src="assets/icons/marker-blue.png" alt="marker-blue" class="img-leyenda">Estación Pluviométrica</p>
+          <p class="card-text mb-0"><img src="assets/icons/marker-green.png" alt="marker-blue" class="img-leyenda">Estación Hidrometrica</p>
+           -->
+          <ul class="list-group">
+            <li class="list-group-item justify-content-between" style="font-size: 16px; padding-left: 8px;">
+              <img src="assets/icons/marker-blue.png" alt="marker-blue" class="img-leyenda">Estación Pluviométrica
+            </li>
+
+            <li class="list-group-item justify-content-between" style="font-size: 16px; padding-left: 8px;">
+              <img src="assets/icons/marker-green.png" alt="marker-blue" class="img-leyenda">Estación Hidrométrica
+            </li>
+          </ul>
+          <hr class="my-2">
+
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 15px;">
+              Funcionamiento:
+              <span class="badge bg-success rounded-pill" style="font-size: 12px;"><strong>15</strong></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 15px;">
+              Mantenimiento:
+              <span class="badge bg-warning rounded-pill" style="font-size: 12px;"><strong>0</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="leyenda-buton">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnMostrarLeyenda" (click)="funcionLeyenda()">
           <i class="bi bi-info-circle"></i>
         </button>
-      
-        <div style="min-height: 120px;">
-          <div class="collapse collapse-horizontal" id="collapseWidthExample">
-            <div class="card card-body" style="width: 300px;">
-              Leyenda
-            </div>
-          </div>
-        </div>
-      </div> -->
+      </div>
   </main>
   
