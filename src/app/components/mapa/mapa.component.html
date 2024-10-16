@@ -1,0 +1,227 @@
+<main>
+    <div class="map-wrapper">
+      <div id="map" class="map-mostrar"></div>
+    </div>
+        
+      <div class="barra-titulo" id="barra-titulo">
+          <p class="card-text text-white p-2 p-barra" style="background-color: #084376;">
+            Portal web para la vigilancia y monitoreo hidrológico
+        </p>
+        
+      </div>
+  
+      <div class="barra-filtro">
+        <div class="card">
+          <div class="card-header text-center" style="background-color: #084376;">
+            <p class="text-white" style="display: inline;">ZONAS</p> 
+              <a data-bs-toggle="collapse" href="#collapseExample" role="button"style="display: inline; float: right; color: white;">
+                <i class="bi bi-chevron-compact-down"></i>
+              </a>
+          </div>
+          <div class="collapse show" id="collapseExample">
+            <div class="card-body pt-1">
+              <div class="row">
+                <div class="card">
+                  <div class="mb-3">
+                    <label for="cmboDepartamento" class="form-label mb-0">Departamento:</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example" 
+                    (change)="getProvincias($event)">
+                      <option [value]="null" selected>--SELECCIONE--</option>
+                      @for (departamento of departamentos; track departamento.codDepartamento) {
+                        <option [value]="departamento.codDepartamento">{{departamento.nomDepartamento}}</option>
+                      }
+                    </select>
+                  </div>
+      
+                  <div class="mb-3">
+                    <label for="combProvincia" class="form-label mb-0">Provincia:</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example" id="combProvincia"
+                    (change)="getDistritos($event)">
+                    <option [value]="null" selected>--SELECCIONE--</option>
+                      @for (provincia of provincias; track provincia.codProvincia) {
+                        <option [value]="provincia.codProvincia">{{provincia.nomProvincia}}</option>
+                      }
+                    </select>
+    
+                  </div>
+      
+                  <div class="mb-3">
+                    <label for="combDistrito" class="form-label mb-0">Distrito:</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example" id="combDistrito"
+                    (change)="getMapDistrito()">
+                      <option [value]="null" selected>--SELECCIONE--</option>
+                      @for (distrito of distritos; track distrito.codDistrito) {
+                        <option [value]="distrito.codDistrito">{{distrito.nomDistrito}}</option>
+                      }
+                    </select>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card leyenda" style="width: 15.5rem;" id="divLeyenda" [ngStyle]="{'display': displayLeyenda}">
+        <div class="card-body">
+          <h6 class="card-title" style="font-size: 17px;"><strong>Leyenda</strong></h6>
+          <h6 class="card-subtitle mb-2 text-muted">Tipo de Estación</h6>
+          <hr class="my-2">
+          <!-- <p class="card-text mb-1"><img src="assets/icons/marker-blue.png" alt="marker-blue" class="img-leyenda">Estación Pluviométrica</p>
+          <p class="card-text mb-0"><img src="assets/icons/marker-green.png" alt="marker-blue" class="img-leyenda">Estación Hidrometrica</p>
+           -->
+          <ul class="list-group">
+            <li class="list-group-item justify-content-between" style="font-size: 16px; padding-left: 8px;">
+              <img src="assets/icons/marker-blue.png" alt="marker-blue" class="img-leyenda">Estación Pluviométrica
+            </li>
+
+            <li class="list-group-item justify-content-between" style="font-size: 16px; padding-left: 8px;">
+              <img src="assets/icons/marker-green.png" alt="marker-blue" class="img-leyenda">Estación Hidrométrica
+            </li>
+          </ul>
+          <hr class="my-2">
+
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 15px;">
+              Funcionamiento:
+              <span class="badge bg-success rounded-pill" style="font-size: 12px;"><strong>15</strong></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size: 15px;">
+              Mantenimiento:
+              <span class="badge bg-warning rounded-pill" style="font-size: 12px;"><strong>0</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="leyenda-buton">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnMostrarLeyenda" (click)="funcionLeyenda()">
+          <i class="bi bi-info-circle"></i>
+        </button>
+      </div>
+
+
+      <div class="row">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true" style="font-size: 15px; font-weight: bold;">Información</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#grafico" type="button" role="tab" aria-controls="grafico" aria-selected="false" style="font-size: 15px; font-weight: bold;">Gráfico</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#tabla" type="button" role="tab" aria-controls="tabla" aria-selected="false" style="font-size: 15px; font-weight: bold;">Tabla</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+              <div class="col-md-4 pt-2 px-1">
+                <div class="card">
+                  <img src="assets/images/H1.jpeg" class="img-thumbnail img-fluid" alt="...">
+                </div>
+              
+              </div>
+              <div class="col-md-8 pt-2 px-1">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- <h5 class="card-title text-center pb-2" style="font-size: 16px;">ESTACIÓN: <strong>${element.nombreEstacion}</strong></h5> -->
+                    <!-- <h5 class="card-title text-center pb-2" style="font-size: 15px;">CÓDIGO: <strong>${element.codEstacion}</strong></h5> -->
+                    <div class="card">
+                      <div class="row">
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+            
+          </div>
+
+
+          <div class="tab-pane fade" id="grafico" role="tabpanel" aria-labelledby="profile-tab">
+            <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="chartOptions"
+            style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+          </div>
+
+          <div class="tab-pane fade" id="tabla" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="row pt-2">
+            <div class="card p-0">
+              <div class="card-body" >
+                <div class="table-responsive-sm" style="height: 400px">
+                  <table class="table table-bordered ">
+                    <thead>
+                      <tr class="table-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" class="py-0">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+
+                
+              </div>
+              </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+      
+  </main>
+  
